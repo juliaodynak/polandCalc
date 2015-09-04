@@ -77,26 +77,32 @@
     [polExpression addObject:newObj];
     
     capacity = polExpression.count;
-    readySetGo[0] = polExpression[0];
-    stackOfOperations[0] = polExpression[1];
-    readySetGo[1] = polExpression [2];
-    for( i = 3; i < capacity; i++)
+    p=0;k=0;
+//    readySetGo[0] = polExpression[0];
+//    stackOfOperations[0] = polExpression[1];
+//    readySetGo[1] = polExpression [2];
+    for( i = 0; i < capacity; i++)
     {
-        if([polExpression[i]  isEqual: @"+"] || [polExpression[i] isEqual: @"-"])
+        if([polExpression[i]  isEqualToString: @"+"] || [polExpression[i] isEqualToString: @"-"])
         {
+            k= stackOfOperations.count-1;
             if (proper >0)
             {
                 k++;
                 stackOfOperations[k] = polExpression[i];
             }
+            else if (stackOfOperations.count == 0)
+            {
+                stackOfOperations[0] = polExpression[i];
+            }
 
-           else if([stackOfOperations[k] isEqual:@"*"] || [stackOfOperations[k] isEqual:@"/"] )
+           else if([stackOfOperations[k] isEqualToString:@"*"] || [stackOfOperations[k] isEqualToString:@"/"] )
             {
                 int j = k;
                 while (j >= 1)
                 {
                     readySetGo[p] = stackOfOperations[j];
-                    [stackOfOperations removeObject:stackOfOperations[j]];
+                    [stackOfOperations removeObjectAtIndex:j];
                     j--;
                     p++;
                     
@@ -106,13 +112,13 @@
                 stackOfOperations[0] = polExpression[i];
                 k = 0;
             }
-            else if([stackOfOperations[k] isEqual:@"+"] || [stackOfOperations[k] isEqual:@"-"])
+            else if([stackOfOperations[k] isEqualToString:@"+"] || [stackOfOperations[k] isEqualToString:@"-"])
             {
                 int j = k;
                 while (j >= 1)
                 {
                     readySetGo[p] = stackOfOperations[j];
-                    [stackOfOperations removeObject:stackOfOperations[j]];
+                    [stackOfOperations removeObjectAtIndex:j];
                     j--;
                     p++;
                     
@@ -124,48 +130,61 @@
             }
 
         }
-        if([polExpression [i] isEqual:@"*"] || [polExpression[i] isEqual:@"/"])
+        if([polExpression [i] isEqualToString:@"*"] || [polExpression[i] isEqualToString:@"/"])
         {
+            k = stackOfOperations.count-1;
             if (proper > 0)
             {
                 k++;
                 stackOfOperations[k] = polExpression[i];
             }
-            else if([stackOfOperations[k] isEqual:@"*"] || [stackOfOperations[k] isEqual:@"/"])
+            else if (stackOfOperations.count == 0)
+            {
+                stackOfOperations[0] = polExpression[i];
+            }
+            else if([stackOfOperations[k] isEqualToString:@"*"] || [stackOfOperations[k] isEqualToString:@"/"])
             {
                 readySetGo[p] = stackOfOperations[k];
                 p++;
                 stackOfOperations[k] = polExpression[i];
             }
-            else if([stackOfOperations[k] isEqual:@"+"] || [stackOfOperations[k] isEqual:@"-"] )
+            else if([stackOfOperations[k] isEqualToString:@"+"] || [stackOfOperations[k] isEqualToString:@"-"] )
             {
                 k++;
                 stackOfOperations[k] = polExpression[i];
                 
             }
         }
-        if([polExpression[i] isEqual:@"("])
+        if([polExpression[i] isEqualToString:@"("])
         {
-            k++;
-            stackOfOperations[k] = polExpression[i];
-            proper++;
+            if (stackOfOperations.count == 0)
+            {
+                stackOfOperations[0] = polExpression[i];
+                proper++;
+            }
+            else
+            {
+                k = stackOfOperations.count;
+                stackOfOperations[k] = polExpression[i];
+                proper++;
+            }
         }
-        if ([polExpression[i] isEqual:@")"])
+        if ([polExpression[i] isEqualToString:@")"])
         {
             int j = k;
-            while (j < stackOfOperations.count && ![stackOfOperations[j] isEqual:@"("])
+            while (j < stackOfOperations.count && ![stackOfOperations[j] isEqualToString:@"("])
             {
                 readySetGo[p] = stackOfOperations[j];
-                [stackOfOperations removeObject:stackOfOperations[j]];
+                [stackOfOperations removeObjectAtIndex:j];
                 j--;
                 p++;
                 
             }
             proper--;
-            [stackOfOperations removeObject:stackOfOperations[j]];
-            k-=2;
+            [stackOfOperations removeObjectAtIndex:j];
+            k -= 2;
         }
-        if (![polExpression[i]  isEqual: @""])
+        if (![polExpression[i]  isEqualToString: @""])
         {
             mayBeOperation = [operationsList rangeOfString:polExpression[i]];
             if (mayBeOperation.length==0)
@@ -179,12 +198,18 @@
     k = stackOfOperations.count - 1;
     while (k>=1)
     {
-        readySetGo[p] = stackOfOperations[k];
-        [stackOfOperations removeObject:stackOfOperations[k]];
-        k--;
-        p++;
+        if(![stackOfOperations[k] isEqualToString: @"("] && ![stackOfOperations[k] isEqualToString:@"("])
+        {
+            readySetGo[p] = stackOfOperations[k];
+            [stackOfOperations removeObjectAtIndex:k];
+            k--;
+            p++;
+        }
     }
-    readySetGo[p] = stackOfOperations[0];
+    if(![stackOfOperations[0] isEqualToString: @"("] && ![stackOfOperations[0] isEqualToString:@"("])
+    {
+        readySetGo[p] = stackOfOperations[0];
+    }
     
 //    con = @"";
 //    for( int i=0; i<readySetGo.count; i++)
@@ -236,7 +261,7 @@
             con = [NSString stringWithFormat:@"%f", res2];
             polExpression[k-1] = con;
             //[polExpression[k-1] stringWithFormat:@"%f", res2];
-            [polExpression removeObject:polExpression[k]];
+            [polExpression removeObjectAtIndex:k];
             //k--;
             //polExpression[k-1] = res2;
             
