@@ -10,6 +10,11 @@
 
 @interface ViewController : UIViewController
 
+@property (nonatomic, strong) NSString *currentString;
+@property (nonatomic, strong) NSString *polandExpression;
+@property (weak, nonatomic) IBOutlet UILabel *display;
+@property (strong, nonatomic) NSString *bufString;
+
 
 @end
 

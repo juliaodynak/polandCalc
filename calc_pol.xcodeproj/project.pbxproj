@@ -15,6 +15,7 @@
 		258612371B98459100B80AB9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 258612361B98459100B80AB9 /* Images.xcassets */; };
 		2586123A1B98459100B80AB9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 258612381B98459100B80AB9 /* LaunchScreen.xib */; };
 		258612461B98459100B80AB9 /* calc_polTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 258612451B98459100B80AB9 /* calc_polTests.m */; };
+		258612501B986F7B00B80AB9 /* Expression_counter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2586124F1B986F7B00B80AB9 /* Expression_counter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,8 @@
 		2586123F1B98459100B80AB9 /* calc_polTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = calc_polTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		258612441B98459100B80AB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		258612451B98459100B80AB9 /* calc_polTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = calc_polTests.m; sourceTree = "<group>"; };
+		2586124F1B986F7B00B80AB9 /* Expression_counter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Expression_counter.m; sourceTree = "<group>"; };
+		258612511B986F9200B80AB9 /* Expression_counter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Expression_counter.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +90,8 @@
 				2586122B1B98459100B80AB9 /* AppDelegate.m */,
 				258612301B98459100B80AB9 /* ViewController.h */,
 				258612311B98459100B80AB9 /* ViewController.m */,
+				258612511B986F9200B80AB9 /* Expression_counter.h */,
+				2586124F1B986F7B00B80AB9 /* Expression_counter.m */,
 				258612331B98459100B80AB9 /* Main.storyboard */,
 				258612361B98459100B80AB9 /* Images.xcassets */,
 				258612381B98459100B80AB9 /* LaunchScreen.xib */,
@@ -223,6 +228,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2586122C1B98459100B80AB9 /* AppDelegate.m in Sources */,
+				258612501B986F7B00B80AB9 /* Expression_counter.m in Sources */,
 				258612291B98459100B80AB9 /* main.m in Sources */,
 				258612321B98459100B80AB9 /* ViewController.m in Sources */,
 				2586122F1B98459100B80AB9 /* calc_pol.xcdatamodeld in Sources */,
